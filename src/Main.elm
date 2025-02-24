@@ -160,6 +160,11 @@ white =
     rgb255 225 225 225
 
 
+blue : Color
+blue =
+    rgb255 21 101 192
+
+
 viewInitializing : Browser.Document Msg
 viewInitializing =
     { title = "Countdown!"
@@ -177,8 +182,7 @@ viewInitializing =
             , Font.center
             ]
           <|
-            el [] <|
-                text "Loading..."
+            column [ width fill, height fill ] [ el [ width fill, height fill ] <| text "Loading..." ]
         ]
     }
 
@@ -198,12 +202,18 @@ viewLoaded zonedTime =
                 ]
             , Font.color white
             , Font.center
+            , padding 50
             ]
           <|
-            el [ width fill ] <|
-                text <|
-                    "It is now "
-                        ++ toHumanReadableTime zonedTime.zone zonedTime.time
+            column [ width fill, height fill ]
+                [ row [ width fill, height fill ]
+                    [ el [ Background.color blue, width fill, height fill ] <|
+                        el [ width fill, centerY ] <|
+                            text <|
+                                "It is now "
+                                    ++ toHumanReadableTime zonedTime.zone zonedTime.time
+                    ]
+                ]
         ]
     }
 
